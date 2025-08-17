@@ -19,6 +19,10 @@ app.use('/api/auth', require('./routes/authRoutes'));
 // ...existing code...
 
 app.use('/api/donors', donorRoutes);
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 // ...existing code...
 
 // Export the app object for testing

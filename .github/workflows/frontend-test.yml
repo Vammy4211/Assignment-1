@@ -1,22 +1,28 @@
-name: Backend Test
+name: Frontend Test
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'backend/**'
-      - '.github/workflows/backend-test.yml'
+      - 'frontend/**'
+      - '.github/workflows/frontend-test.yml'
   pull_request:
     branches: [ main ]
     paths:
-      - 'backend/**'
+      - 'frontend/**'
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: production
+    env:
+      AWS_HOST: ${{ secrets.AWS_HOST }}
+      AWS_USER: ${{ secrets.AWS_USER }}
+      AWS_SSH_KEY: ${{ secrets.AWS_SSH_KEY }}
+      AWS_FRONTEND_PATH: ${{ secrets.AWS_FRONTEND_PATH }}
     defaults:
       run:
-        working-directory: backend
+        working-directory: frontend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
