@@ -9,11 +9,17 @@ dotenv.config();
 console.log("TASK-2 branch running: Add Donor feature being developed");
 
 const app = express();
+const donorRoutes = require('./routes/donorRoutes');
 
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', require('./routes/authRoutes'));
 //app.use('/api/tasks', require('./routes/taskRoutes'));
+
+// ...existing code...
+
+app.use('/api/donors', donorRoutes);
+// ...existing code...
 
 // Export the app object for testing
 if (require.main === module) {
