@@ -1,20 +1,11 @@
-const Donor = require('../models/Donor');
+const mongoose = require('mongoose');
 
-exports.addDonor = async (req, res) => {
-  try {
-    const donor = new Donor(req.body);
-    await donor.save();
-    res.status(201).json(donor);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+const donorSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  cause: { type: String },
+  amount: { type: Number, required: true },
+  date: { type: Date, default: Date.now }
+});
 
-exports.getDonors = async (req, res) => {
-  try {
-    const donors = await Donor.find();
-    res.json(donors);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+module.exports = mongoose.model('Donor', donorSchema);
